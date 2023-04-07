@@ -2,6 +2,7 @@ defmodule StoreManagerWeb.StoreLive.Index do
   use StoreManagerWeb, :live_view
 
   alias StoreManager.Business
+  alias StoreManager.Repo
   alias StoreManager.Business.Store
 
   @impl true
@@ -12,7 +13,7 @@ defmodule StoreManagerWeb.StoreLive.Index do
   @impl true
   def handle_params(params, _url, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
-  end
+  end <
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
@@ -38,7 +39,7 @@ defmodule StoreManagerWeb.StoreLive.Index do
   @impl true
   def handle_info({StoreManagerWeb.StoreLive.FormComponent, {:saved, store}}, socket) do
     IO.inspect(store, label: "IN HANDLE INFO")
-    {:noreply, stream_insert(socket, :stores, store |> StoreManager.Repo.preload(:company))}
+    {:noreply, stream_insert(socket, :stores, store |> Repo.preload(:company, force: true))}
   end
 
   @impl true
