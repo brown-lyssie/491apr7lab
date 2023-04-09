@@ -175,7 +175,6 @@ defmodule StoreManager.Business do
     store
     |> Store.changeset(attrs)
     |> Repo.update()
-    |> dbg()
   end
 
   @doc """
