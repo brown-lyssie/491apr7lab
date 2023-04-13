@@ -1,0 +1,26 @@
+<.header>
+  Clerk <%= @clerk.id %>
+  <:subtitle>This is a clerk record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/clerks/#{@clerk}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit clerk</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Last name"><%= @clerk.last_name %></:item>
+</.list>
+
+<.back navigate={~p"/clerks"}>Back to clerks</.back>
+
+<.modal :if={@live_action == :edit} id="clerk-modal" show on_cancel={JS.patch(~p"/clerks/#{@clerk}")}>
+  <.live_component
+    module={StoreManagerWeb.ClerkLive.FormComponent}
+    id={@clerk.id}
+    title={@page_title}
+    action={@live_action}
+    clerk={@clerk}
+    patch={~p"/clerks/#{@clerk}"}
+  />
+</.modal>

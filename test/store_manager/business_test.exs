@@ -110,4 +110,58 @@ defmodule StoreManager.BusinessTest do
       assert %Ecto.Changeset{} = Business.change_store(store)
     end
   end
+
+  describe "clerks" do
+    alias StoreManager.Business.Clerk
+
+    import StoreManager.BusinessFixtures
+
+    @invalid_attrs %{last_name: nil}
+
+    test "list_clerks/0 returns all clerks" do
+      clerk = clerk_fixture()
+      assert Business.list_clerks() == [clerk]
+    end
+
+    test "get_clerk!/1 returns the clerk with given id" do
+      clerk = clerk_fixture()
+      assert Business.get_clerk!(clerk.id) == clerk
+    end
+
+    test "create_clerk/1 with valid data creates a clerk" do
+      valid_attrs = %{last_name: "some last_name"}
+
+      assert {:ok, %Clerk{} = clerk} = Business.create_clerk(valid_attrs)
+      assert clerk.last_name == "some last_name"
+    end
+
+    test "create_clerk/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Business.create_clerk(@invalid_attrs)
+    end
+
+    test "update_clerk/2 with valid data updates the clerk" do
+      clerk = clerk_fixture()
+      update_attrs = %{last_name: "some updated last_name"}
+
+      assert {:ok, %Clerk{} = clerk} = Business.update_clerk(clerk, update_attrs)
+      assert clerk.last_name == "some updated last_name"
+    end
+
+    test "update_clerk/2 with invalid data returns error changeset" do
+      clerk = clerk_fixture()
+      assert {:error, %Ecto.Changeset{}} = Business.update_clerk(clerk, @invalid_attrs)
+      assert clerk == Business.get_clerk!(clerk.id)
+    end
+
+    test "delete_clerk/1 deletes the clerk" do
+      clerk = clerk_fixture()
+      assert {:ok, %Clerk{}} = Business.delete_clerk(clerk)
+      assert_raise Ecto.NoResultsError, fn -> Business.get_clerk!(clerk.id) end
+    end
+
+    test "change_clerk/1 returns a clerk changeset" do
+      clerk = clerk_fixture()
+      assert %Ecto.Changeset{} = Business.change_clerk(clerk)
+    end
+  end
 end

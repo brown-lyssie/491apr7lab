@@ -205,4 +205,100 @@ defmodule StoreManager.Business do
   def change_store(%Store{} = store, attrs \\ %{}) do
     Store.changeset(store, attrs)
   end
+
+  alias StoreManager.Business.Clerk
+
+  @doc """
+  Returns the list of clerks.
+
+  ## Examples
+
+      iex> list_clerks()
+      [%Clerk{}, ...]
+
+  """
+  def list_clerks do
+    Repo.all(Clerk)
+  end
+
+  @doc """
+  Gets a single clerk.
+
+  Raises `Ecto.NoResultsError` if the Clerk does not exist.
+
+  ## Examples
+
+      iex> get_clerk!(123)
+      %Clerk{}
+
+      iex> get_clerk!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_clerk!(id), do: Repo.get!(Clerk, id)
+
+  @doc """
+  Creates a clerk.
+
+  ## Examples
+
+      iex> create_clerk(%{field: value})
+      {:ok, %Clerk{}}
+
+      iex> create_clerk(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_clerk(attrs \\ %{}) do
+    %Clerk{}
+    |> Clerk.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a clerk.
+
+  ## Examples
+
+      iex> update_clerk(clerk, %{field: new_value})
+      {:ok, %Clerk{}}
+
+      iex> update_clerk(clerk, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_clerk(%Clerk{} = clerk, attrs) do
+    clerk
+    |> Clerk.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a clerk.
+
+  ## Examples
+
+      iex> delete_clerk(clerk)
+      {:ok, %Clerk{}}
+
+      iex> delete_clerk(clerk)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_clerk(%Clerk{} = clerk) do
+    Repo.delete(clerk)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking clerk changes.
+
+  ## Examples
+
+      iex> change_clerk(clerk)
+      %Ecto.Changeset{data: %Clerk{}}
+
+  """
+  def change_clerk(%Clerk{} = clerk, attrs \\ %{}) do
+    Clerk.changeset(clerk, attrs)
+  end
 end

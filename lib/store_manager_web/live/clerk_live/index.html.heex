@@ -1,0 +1,41 @@
+<.header>
+  Listing Clerks
+  <:actions>
+    <.link patch={~p"/clerks/new"}>
+      <.button>New Clerk</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="clerks"
+  rows={@streams.clerks}
+  row_click={fn {_id, clerk} -> JS.navigate(~p"/clerks/#{clerk}") end}
+>
+  <:col :let={{_id, clerk}} label="Last name"><%= clerk.last_name %></:col>
+  <:action :let={{_id, clerk}}>
+    <div class="sr-only">
+      <.link navigate={~p"/clerks/#{clerk}"}>Show</.link>
+    </div>
+    <.link patch={~p"/clerks/#{clerk}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, clerk}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: clerk.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="clerk-modal" show on_cancel={JS.patch(~p"/clerks")}>
+  <.live_component
+    module={StoreManagerWeb.ClerkLive.FormComponent}
+    id={@clerk.id || :new}
+    title={@page_title}
+    action={@live_action}
+    clerk={@clerk}
+    patch={~p"/clerks"}
+  />
+</.modal>
