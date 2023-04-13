@@ -29,6 +29,13 @@ defmodule StoreManagerWeb.Router do
     live "/companies/:id", CompanyLive.Show, :show
     live "/companies/:id/show/edit", CompanyLive.Show, :edit
     live "/",CompanyLive.Index, :index
+
+    live "/clerks", ClerkLive.Index, :index
+    live "/clerks/new", ClerkLive.Index, :new
+    live "/clerks/:id/edit", ClerkLive.Index, :edit
+
+    live "/clerks/:id", ClerkLive.Show, :show
+    live "/clerks/:id/show/edit", ClerkLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
