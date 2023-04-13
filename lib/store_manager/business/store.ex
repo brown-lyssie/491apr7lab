@@ -9,6 +9,7 @@ defmodule StoreManager.Business.Store do
     field :name, :string
     belongs_to :company, Company
     has_many :clerks, Clerk
+
     timestamps()
   end
 

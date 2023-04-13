@@ -121,6 +121,7 @@ defmodule StoreManager.Business do
     Store
     |> Repo.all
     |> Repo.preload(:company)
+    |> Repo.preload(:clerks)
   end
 
   @doc """
@@ -219,6 +220,7 @@ defmodule StoreManager.Business do
   """
   def list_clerks do
     Repo.all(Clerk)
+    |> Repo.preload(:store)
   end
 
   @doc """

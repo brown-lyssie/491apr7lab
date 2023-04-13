@@ -4,7 +4,7 @@ defmodule StoreManagerWeb.StoreLive.Index do
   alias StoreManager.Business
   alias StoreManager.Repo
   alias StoreManager.Business.Store
-
+  alias StoreManager.Business.Clerk
   @impl true
   def mount(_params, _session, socket) do
     {:ok, stream(socket, :stores, Business.list_stores())}

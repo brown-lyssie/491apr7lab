@@ -20,6 +20,8 @@ defmodule StoreManagerWeb.ClerkLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:last_name]} type="text" label="Last name" />
+        <.input field={@form[:store_id]} type="select" options={Enum.map(@stores, &({&1.name, &1.id}))}/>
+
         <:actions>
           <.button phx-disable-with="Saving...">Save Clerk</.button>
         </:actions>
