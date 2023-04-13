@@ -3,11 +3,12 @@ defmodule StoreManager.Business.Store do
   import Ecto.Changeset
 
   alias StoreManager.Business.Company
+  alias StoreManager.Business.Clerk
 
   schema "stores" do
     field :name, :string
     belongs_to :company, Company
-
+    has_many :clerks, Clerk
     timestamps()
   end
 
